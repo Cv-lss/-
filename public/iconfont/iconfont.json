@@ -1,0 +1,23 @@
+{
+  "id": "3502900",
+  "name": "0154",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6598341",
+      "name": "caret-up",
+      "font_class": "up",
+      "unicode": "e8ec",
+      "unicode_decimal": 59628
+    },
+    {
+      "icon_id": "15838582",
+      "name": "arrow-down-filling",
+      "font_class": "down",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    }
+  ]
+}
