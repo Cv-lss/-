@@ -30,7 +30,7 @@
                 </label>
                 <span class="forget">忘记密码？</span>
               </div>
-              <button class="btn" @click="userLogin">登&nbsp;&nbsp;录</button>
+              <button class="btn" @click.prevent="userLogin">登&nbsp;&nbsp;录</button>
             </form>
 
             <div class="call clearFix">
@@ -81,8 +81,9 @@ export default {
         // console.log(111);
         const { phone, password } = this;
         (phone && password) && await this.$store.dispatch('userLogin', { phone, password })
-        //登录成功后进入首页
-        this.$router.push('/home')
+        //登录成功后看路由当中有没有query参数
+        let toPath = this.$route.query.redirect || '/home'
+        this.$router.push(toPath)
       } catch (error) {
         alert(error.message)
       }

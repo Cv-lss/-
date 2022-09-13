@@ -8,10 +8,62 @@ import Register from '@/pages/Register'
 import Detail from '@/pages/Detail'
 import AddCartSuccess from '@/pages/AddCartSuccess'
 import ShopCart from '@/pages/ShopCart'
+import Trade from '@/pages/Trade'
+import Pay from '@/pages/Pay'
+import PaySuccess from '@/pages/PaySuccess'
+import Center from '@/pages/Center'
+import groupOrder from '@/pages/Center/groupOrder'
+import myOrder from '@/pages/Center/myOrder'
 // console.log(VueRouter);
 
 
 export default [
+    {
+        path: '/center',
+        component: Center,
+        meta: { show: true }, //配置路由元信息 来判断footer显示和隐藏
+        //二级路由组件
+        children: [
+            {
+
+                path: 'grouporder',
+                component: groupOrder
+            },
+            {
+                path: 'myorder',
+                component: myOrder
+            },
+            {
+                path: '/center',
+                redirect: '/center/myorder'
+            }
+        ]
+    },
+    {
+        path: '/paysuccess',
+        component: PaySuccess,
+        meta: { show: true } //配置路由元信息 来判断footer显示和隐藏
+    },
+    {
+        path: '/pay',
+        component: Pay,
+        meta: { show: true },//配置路由元信息 来判断footer显示和隐藏
+
+    },
+    {
+        path: '/trade',
+        component: Trade,
+        meta: { show: true }, //配置路由元信息 来判断footer显示和隐藏
+        //路由独享守卫
+        beforeEnter: (to, from, next) => {
+            // reject the navigation
+            if (from.path == '/shopcart') {
+                next()
+            } else {
+                next(false)
+            }
+        },
+    },
     {
         path: '/shopcart',
         component: ShopCart,

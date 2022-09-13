@@ -11,6 +11,7 @@ import search from './search'
 import detail from './detail'
 import cartlist from './shopcart'
 import user from './user'
+import trade from './trade'
 //创建vuex的实例对象并暴露 (store)
 export default new Vuex.Store({
     modules: {
@@ -18,6 +19,7 @@ export default new Vuex.Store({
         search,
         detail,
         cartlist,
-        user
+        user,
+        trade,
     }
 })

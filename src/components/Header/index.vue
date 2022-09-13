@@ -6,16 +6,23 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <p v-if="!userName">
             <span>请</span>
             <!-- 声明式导航 务必要有 “to“ 是要去那个页面 -->
             <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
           </p>
+          <!-- 登录成功后 -->
+          <p v-else>
+            <a>{{ userName }}</a>
+            <a class="register" @click="logout">退出登录</a>
+          </p>
         </div>
         <div class="typeList">
-          <a href="###">我的订单</a>
-          <a href="###">我的购物车</a>
+          <!-- <a href="###">我的订单</a> -->
+          <router-link to="/center/myorder">我的订单</router-link>
+          <!-- <a href="###">我的购物车</a> -->
+          <router-link to="/shopcart">我的购物车</router-link>
           <a href="###">我的尚品汇</a>
           <a href="###">尚品汇会员</a>
           <a href="###">企业采购</a>
@@ -56,22 +63,42 @@ export default {
   methods: {
     goSearch() {
       //搜索按钮的回调函数 需要跳转到 search页面  //路由传递参数
-      if (this.$route.query) { //判断有没有query参数  如果有就动态添加一个 
-        let location = { name: 'search', params: { keyword: this.keyword || undefined } };
-        location.query = this.$route.query
-        this.$router.push(location)
+      if (this.$route.query) {
+        //判断有没有query参数  如果有就动态添加一个
+        let location = {
+          name: "search",
+          params: { keyword: this.keyword || undefined },
+        };
+        location.query = this.$route.query;
+        this.$router.push(location);
       }
     },
+
+    //退出登录
+    async logout() {
+      try {
+        await this.$store.dispatch("userLogout");
+        //如果突出成功 返回首页
+        this.$router.push("/home");
+      } catch (error) { }
+    },
   },
+
   mounted() {
     //通过全局事件总线清除关键字
-    this.$bus.$on('clear', () => {
+    this.$bus.$on("clear", () => {
       // console.log(1111);
-      this.keyword = ''
+      this.keyword = "";
       // console.log(11111);
-    })
+    });
   },
-}
+
+  computed: {
+    userName() {
+      return this.$store.state.user.userInfo.name;
+    },
+  },
+};
 </script>
  
 <style scoped lang="less">

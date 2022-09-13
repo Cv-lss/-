@@ -22,6 +22,12 @@ requests.interceptors.request.use((config) => {
         //因为不能直接路由传参 只能在请求头带过去 
         config.headers.userTempId = store.state.detail.uuid_token
     }
+
+    //请求拦截器 用请求头把token带给服务器
+    if (store.state.user.token) {
+        config.headers.token = store.state.user.token
+    }
+
     //请求开始时 进度条显示
     nprogress.start()
     //consign：配置对象，对象里面有一个属性很重要 里面的headers请求头

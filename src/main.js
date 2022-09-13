@@ -32,14 +32,25 @@ import '@/mock/mockServe'
 //引入swiper的样式 轮播图
 import 'swiper/css/swiper.css'
 
-
+//统一api
+import * as API from '@/api'
 Vue.config.productionTip = false
 
+//引入饿了么ui
+import { Button, MessageBox } from 'element-ui';
+//使用饿了么ui
+Vue.component(Button.name, Button);
+//饿了么ui弹框
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$alert = MessageBox.alert;
+//引入表单验证
+import '@/plugins/validate'
 new Vue({
   render: h => h(App),
   //注册全局事件总线
   beforeCreate() {
-    Vue.prototype.$bus = this
+    Vue.prototype.$bus = this;
+    Vue.prototype.$API = API;
   },
   //注册路由 
   router,
